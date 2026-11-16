@@ -1,0 +1,22 @@
+# Dependencies and generated output
+node_modules/
+/dist/
+/shots/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local environment and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# macOS and editor files
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo

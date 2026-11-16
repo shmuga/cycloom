@@ -1,0 +1,27 @@
+{
+  "name": "cycloom",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "e2e": "node scripts/e2e.mjs",
+    "shots": "node scripts/shoot.mjs shots",
+    "stages": "node scripts/stages.mjs shots",
+    "brand": "node scripts/brand.mjs",
+    "readme-shots": "node scripts/readme-shots.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "playwright-core": "^1.49.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  },
+  "license": "GPL-3.0-only",
+  "description": "Generative MIDI sequencer for the Elektron Model:Cycles \u2014 physics voices on a floating isometric island."
+}
