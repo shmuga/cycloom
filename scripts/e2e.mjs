@@ -189,10 +189,10 @@ try {
 
   // capture
   await p.click('button.play');
-  await p.click('.hdr-right [aria-label="Record"]');
+  await p.click('.hdr-right button:has(.rec-dot)');
   await p.waitForTimeout(2500);
   const dl = p.waitForEvent('download');
-  await p.click('.hdr-right [aria-label="Record"]');
+  await p.click('.hdr-right button:has(.rec-dot)');
   const file = await dl;
   check('rec stops into a .mid download', file.suggestedFilename().endsWith('.mid'), file.suggestedFilename());
 
@@ -201,11 +201,11 @@ try {
   const outBefore = await p.evaluate(() => window.nc.store.state.outputId);
   await p.evaluate(() => window.nc.app.selectOutput(''));
   await p.waitForTimeout(200);
-  check('rec says it will record audio without a device', (await p.textContent('.hdr-right [aria-label="Record"]')).includes('wav'));
-  await p.click('.hdr-right [aria-label="Record"]');
+  check('rec says it will record audio without a device', (await p.textContent('.hdr-right button:has(.rec-dot)')).includes('wav'));
+  await p.click('.hdr-right button:has(.rec-dot)');
   await p.waitForTimeout(3500);
   const dlw = p.waitForEvent('download');
-  await p.click('.hdr-right [aria-label="Record"]');
+  await p.click('.hdr-right button:has(.rec-dot)');
   const wavFile = await dlw;
   const wavPath = await wavFile.path();
   const { readFileSync } = await import('node:fs');

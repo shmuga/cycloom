@@ -1385,4 +1385,3 @@ function shortPort(name: string): string {
   if (m) return 'Model:Cycles';
   return name.length > 22 ? `${name.slice(0, 20)}…` : name;
 }
-

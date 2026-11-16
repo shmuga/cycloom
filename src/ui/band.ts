@@ -179,4 +179,3 @@ export function renderPhoneBand(el: HTMLElement, hm: HarmonyEngine, held: boolea
     h('div', { class: 'r2' }, dots, h('span', { class: 'c cur' }, v.chords[0].name), h('span', { class: 'c' }, v.chords[1]?.name ?? ''), h('span', { class: 'c up' }, v.chords[2]?.name ?? '')),
   );
 }
-
