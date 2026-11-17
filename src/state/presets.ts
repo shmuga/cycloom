@@ -142,3 +142,8 @@ export const PRESETS: Preset[] = [
     build: () => defaultState(),
   },
 ];
+
+/** What a fresh visit (and "reset to defaults") starts with: the airports preset. */
+export function initialState(): AppState {
+  return (PRESETS.find((p) => p.id === 'airports') ?? PRESETS[0]).build();
+}

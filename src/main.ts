@@ -10,13 +10,13 @@ import { fromNorm, paramDef, toNorm } from './state/params';
 import { Persist } from './state/persist';
 import { codeFromHash } from './state/share';
 import { Store } from './state/store';
-import { defaultState } from './state/types';
+import { initialState } from './state/presets';
 import { App } from './ui/app';
 import { installTips } from './ui/tips';
 
 const persist = new Persist();
 const saved = persist.loadState();
-const store = new Store(saved ?? defaultState());
+const store = new Store(saved ?? initialState());
 const router = new OutputRouter();
 const recorder = new Recorder();
 const preview = new PreviewSynth();

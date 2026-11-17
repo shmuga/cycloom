@@ -42,9 +42,17 @@ try {
   // ---------------------------------------------------------------- desktop
   const { p, errors } = await newPage();
   check('auto-selects the MIDI output', (await p.textContent('.hdr-right .pill')).includes('Test Synth'));
+  check('fresh visit starts on the airports preset', await p.evaluate(() => window.nc.store.state.bpm === 60 && window.nc.store.state.tracks.every((t) => t.life.swell > 0)));
+  // the checks below were written against the classic six-track setup
+  await p.evaluate(() => window.nc.app.applyPreset('default'));
+  await p.waitForTimeout(200);
 
   await p.click('button.play');
   await p.waitForTimeout(5000);
+  // journey rests are random: give the voices up to 6 s more to reach three channels
+  await p
+    .waitForFunction(() => new Set(window.__sent.filter((m) => typeof m.d[0] === 'number' && (m.d[0] & 0xf0) === 0x90).map((m) => m.d[0] & 0x0f)).size >= 3, null, { timeout: 6000 })
+    .catch(() => {});
   const sent = await p.evaluate(() => window.__sent);
   const notes = sent.filter((m) => typeof m.d[0] === 'number' && (m.d[0] & 0xf0) === 0x90);
   const chans = new Set(notes.map((m) => (m.d[0] & 0x0f) + 1));

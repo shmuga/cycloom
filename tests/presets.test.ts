@@ -81,3 +81,12 @@ describe('swell', () => {
     expect(j.swell(0, s, 2)).toBeCloseTo(j.swell(0, s, 18), 9);
   });
 });
+
+describe('initial state', () => {
+  it('a fresh visit starts on the airports preset', async () => {
+    const { initialState } = await import('../src/state/presets');
+    const s = initialState();
+    expect(s.bpm).toBe(60);
+    expect(s.tracks.every((t) => t.life.swell > 0)).toBe(true);
+  });
+});

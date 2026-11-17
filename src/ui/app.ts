@@ -1,6 +1,6 @@
 import { HINTS, MODE_BLURB, hintFor } from './hints';
 import { decodeShare, encodeShare, shareURL } from '../state/share';
-import { PRESETS } from '../state/presets';
+import { PRESETS, initialState } from '../state/presets';
 import { randomSetup } from '../state/randomise';
 import type { Engine } from '../engine/engine';
 import { DIVISIONS, GATES } from '../mapping/grid';
@@ -16,7 +16,7 @@ import { SceneRenderer } from '../scene/renderer';
 import { PARAMS } from '../state/params';
 import { type Persist, type Snapshot, exportJSON, importJSON } from '../state/persist';
 import type { Store } from '../state/store';
-import { type AppState, MAX_TRACKS, defaultModeParams, defaultState, makeTrack } from '../state/types';
+import { type AppState, MAX_TRACKS, defaultModeParams, makeTrack } from '../state/types';
 import { MODE_IDS, MODE_PARAMS, type ModeId } from '../voices';
 import { RELATIONS, renderBand, renderMiniBand, renderPhoneBand } from './band';
 import { dice, h, loadIcon, logo, pad2, presetsIcon, saveIcon, setText, shareIcon, toggle } from './dom';
@@ -1332,7 +1332,7 @@ export class App {
         h('button', { class: 'pill', onclick: () => (el.remove(), this.openLoad()) }, 'load scene / import…'),
       ),
       h('div', { class: 'btns' }, h('button', { class: 'pill', onclick: () => {
-        this.store.replace({ ...defaultState(), outputId: this.state.outputId, inputId: this.state.inputId });
+        this.store.replace({ ...initialState(), outputId: this.state.outputId, inputId: this.state.inputId });
         el.remove();
         this.toast('reset to defaults', 'undo', () => this.undo());
       } }, 'reset to defaults')),
