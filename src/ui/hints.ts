@@ -60,7 +60,7 @@ export const HINTS: Record<string, string> = {
   accent: 'Hits at or above this strength use the top of the velocity range; weaker hits play softly.',
 
   // ---------------------------------------------------------------- track: midi column
-  channel: 'MIDI channel (on the Model:Cycles, 1–6 are its tracks).',
+  channel: 'MIDI channel this track sends on (1–16). Point each track at a different part or instrument on your device.',
   division: 'Grid size: every hit lands on a step of this length.',
   trackSwing: 'Use the global swing on this track.',
   gate: 'Note length. 2/1 and 4/1 hold for two or four bars (drones).',

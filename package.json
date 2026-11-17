@@ -23,5 +23,5 @@
     "vitest": "^2.1.8"
   },
   "license": "GPL-3.0-only",
-  "description": "Generative MIDI sequencer for the Elektron Model:Cycles \u2014 physics voices on a floating isometric island."
+  "description": "Generative MIDI sequencer for any MIDI device \u2014 physics voices on a floating isometric island."
 }

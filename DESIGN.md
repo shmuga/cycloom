@@ -1,6 +1,6 @@
 # Cycloom — design
 
-A single-page web app that drives an Elektron Model:Cycles (or any multitimbral MIDI device) over Web MIDI with generative sequences driven by physics. It works as an **ambient machine**: start it, and it keeps evolving for hours without looping.
+A single-page web app that drives any MIDI device (ideally a multitimbral one) over Web MIDI with generative sequences driven by physics. It works as an **ambient machine**: start it, and it keeps evolving for hours without looping.
 
 There are two layers: a shared **harmony engine** and a **physics voice** on each track.
 
@@ -12,7 +12,7 @@ There are two layers: a shared **harmony engine** and a **physics voice** on eac
 
 | Topic | Decision |
 |---|---|
-| Clock | Both: **internal** (sends clock and start/stop) or **external** (follows the Cycles' clock) |
+| Clock | Both: **internal** (sends clock and start/stop) or **external** (follows the device's clock) |
 | Polyphony | Each track is **mono** or **chord** |
 | MIDI out | Notes and velocity only. No CCs; the user tweaks sound on the device |
 | Harmony input | **Generated**. The generator keeps going; a clickable history lets you jump back to an earlier point |
@@ -72,10 +72,10 @@ transpose = ± scale steps, ± octaves
 ```
 **Voicing** (tonal tracks): **mono** picks one interval step per hit; **chord** plays the slot note plus the other steps in the interval set, all at once (2–4 notes); **root** sends only the slot note.
 
-> **Caveat to test:** a Cycles track may only accept one note at a time over MIDI even on the CHORD machine, which voices the chord itself. If so, chord mode offers a fallback, **"root only"**, which sends just the slot note and lets the machine build the chord.
+> **Mono-only devices:** some instruments accept only one note at a time per channel, or voice chords themselves. For those, chord mode offers a fallback, **"root only"**, which sends just the slot note and lets the instrument build the chord.
 
 ### Drum tracks
-A track is either **tonal** (everything above) or **drum**, for the Cycles' KICK, SNARE, METAL and PERC machines.
+A track is either **tonal** (everything above) or **drum**, for drum machines and drum parts that respond to a fixed note.
 - A drum track ignores the harmony: every hit plays one **base note**.
 - **Pitch spread** (0–12 semitones) lets different targets nudge the pitch by a few fixed amounts, which suits toms and pitched percussion.
 - **Accent**: hits stronger than a threshold get the top of the velocity range; the rest are scaled down into a **ghost** range. This gives dynamics without changing pitch.
@@ -217,7 +217,7 @@ type Mapping = {
 
 ## 5b. Mobile & responsive
 
-**Platform reality:** Web MIDI works in Chrome on Android, including a USB-OTG cable to the Cycles or the 8mu. On **iOS** the user runs the app inside a **Web MIDI browser app**, which adds `navigator.requestMIDIAccess` to the page. Those add-ons may **ignore the timestamp argument** of `send()`. The scheduler detects this with an option (`timestampedSend: auto | on | off`) and falls back to **just-in-time sending**: a shorter lookahead (~20 ms) on the worker tick, sending each event when its time arrives. In plain iOS Safari the app runs in sine preview.
+**Platform reality:** Web MIDI works in Chrome on Android, including a USB-OTG cable to the MIDI device or the 8mu. On **iOS** the user runs the app inside a **Web MIDI browser app**, which adds `navigator.requestMIDIAccess` to the page. Those add-ons may **ignore the timestamp argument** of `send()`. The scheduler detects this with an option (`timestampedSend: auto | on | off`) and falls back to **just-in-time sending**: a shorter lookahead (~20 ms) on the worker tick, sending each event when its time arrives. In plain iOS Safari the app runs in sine preview.
 
 ### Breakpoints
 | Width | Layout |

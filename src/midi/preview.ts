@@ -13,9 +13,19 @@ export class PreviewSynth implements NoteSink {
   private tap: ScriptProcessorNode | null = null;
   private tapSink: GainNode | null = null;
 
-  /** Must be called from a user gesture on iOS. */
+  /** Must be called from a user gesture on iOS. Safe to call often: it only acts when audio is not running. */
   resume(): void {
+    if (this.ctx?.state === 'running') return;
     if (!this.ctx) {
+      // iOS 17+: play like a music app, so the ring/silent switch doesn't mute the preview
+      const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession;
+      if (session) {
+        try {
+          session.type = 'playback';
+        } catch {
+          /* older WebKit: setting is not supported */
+        }
+      }
       const AC = (window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext) as typeof AudioContext | undefined;
       if (!AC) return;
       this.ctx = new AC();

@@ -168,7 +168,7 @@ requestAnimationFrame(loop);
 void midi.init().then((ok) => {
   if (ok && !saved) {
     const guess = midi.guessOutput();
-    if (guess && /cycles/i.test(midi.outputs().find((o) => o.id === guess)?.name ?? '')) store.update((s) => (s.outputId = guess), { undo: false });
+    if (guess) store.update((s) => (s.outputId = guess), { undo: false });
   }
   applyOutput();
   app.update();
@@ -180,8 +180,12 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && engine.playing) void wake.acquire();
 });
 
-// unlock audio on first gesture (iOS)
-window.addEventListener('pointerdown', () => preview.resume(), { once: true });
+// unlock audio on a gesture (iOS), and again after iOS suspends it (lock screen, app switch, call)
+window.addEventListener('pointerdown', () => preview.resume());
+window.addEventListener('touchend', () => preview.resume());
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') preview.resume();
+});
 
 declare global {
   interface Window {

@@ -2,7 +2,7 @@
 
 # Cycloom
 
-**A generative sequencer that turns little physics worlds into music.** A floating isometric island holds one plinth per track. On each plinth something moves — water drops, waves, falling rocks, wind through chimes, pendulums, orbits — and every collision plays a note from a slowly evolving harmony. Made for the Elektron Model:Cycles over USB MIDI, it works with any multitimbral MIDI device, or on its own through a built-in sine preview. It is designed to run for hours as an ambient machine.
+**A generative sequencer that turns little physics worlds into music.** A floating isometric island holds one plinth per track. On each plinth something moves — water drops, waves, falling rocks, wind through chimes, pendulums, orbits — and every collision plays a note from a slowly evolving harmony. It drives any MIDI device — a multitimbral synth, a groovebox, a drum machine, a DAW — or plays on its own through a built-in sine preview. It is designed to run for hours as an ambient machine.
 
 ![The island overview: harmony band on top, six plinths, journey faders on the right](docs/screens/overview.png)
 
@@ -39,10 +39,10 @@ npm run dev        # http://localhost:5173
 npm run build      # static site in dist/ (serve over HTTPS for Web MIDI)
 ```
 
-- **Desktop:** Chrome or Edge (Web MIDI). Connect the Cycles over USB; it is picked automatically.
+- **Desktop:** Chrome or Edge (Web MIDI). Connect a MIDI device over USB; the first hardware port is picked automatically, or choose one in the top bar.
 - **Android:** Chrome with a USB-OTG cable.
 - **iOS:** open it in a Web MIDI browser app. The app detects the injected API and sends just-in-time, because those apps may ignore send timestamps. You can override this under ⋯ → timing.
-- **No device:** notes play through a built-in sine preview.
+- **No device:** notes play through a built-in sine preview. On iOS 17 and later it plays even with the silent switch on; on older iOS, turn the ringer on to hear it.
 
 ## Use
 

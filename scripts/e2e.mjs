@@ -9,11 +9,11 @@ const server = await createServer({ server: { port: 5399, strictPort: true }, lo
 await server.listen();
 const url = 'http://localhost:5399/';
 
-// Fake MIDIAccess: one output (Model:Cycles) and one input (8mu) we can drive from the test.
+// Fake MIDIAccess: one output (a synth) and one input (8mu) we can drive from the test.
 const MIDI_STUB = () => {
   const sent = [];
   window.__sent = sent;
-  const out = { id: 'out1', name: 'Elektron Model:Cycles', send: (d, ts) => sent.push({ d: Array.from(d), ts }), clear: () => sent.push({ d: ['clear'] }) };
+  const out = { id: 'out1', name: 'Test Synth', send: (d, ts) => sent.push({ d: Array.from(d), ts }), clear: () => sent.push({ d: ['clear'] }) };
   const inp = { id: 'in1', name: '8mu', onmidimessage: null };
   window.__midiIn = (bytes) => inp.onmidimessage?.({ data: new Uint8Array(bytes), timeStamp: performance.now() });
   const access = { outputs: new Map([['out1', out]]), inputs: new Map([['in1', inp]]), onstatechange: null };
@@ -41,7 +41,7 @@ async function newPage(w = 1440, h = 1000, mobile = false) {
 try {
   // ---------------------------------------------------------------- desktop
   const { p, errors } = await newPage();
-  check('auto-selects the Model:Cycles output', (await p.textContent('.hdr-right .pill')).includes('Model:Cycles'));
+  check('auto-selects the MIDI output', (await p.textContent('.hdr-right .pill')).includes('Test Synth'));
 
   await p.click('button.play');
   await p.waitForTimeout(5000);

@@ -52,10 +52,9 @@ export class MidiAccess {
     return (id && this.access?.outputs.get(id)) || null;
   }
 
-  /** Prefer a port whose name mentions the Model:Cycles. */
+  /** The first hardware-looking output (skips virtual/loopback buses), or '' when there is none. */
   guessOutput(): string {
-    const outs = this.outputs();
-    return (outs.find((o) => /cycles/i.test(o.name)) ?? outs[0])?.id ?? '';
+    return this.outputs().find((o) => !/\b(iac|through|thru|virtual|loopback|midi\s*bus)\b/i.test(o.name))?.id ?? '';
   }
 
   /** Listen to one input (or all inputs when id is '*'). */

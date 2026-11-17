@@ -59,7 +59,7 @@ describe('share links', () => {
 
   it('leave device settings out and keep the receiver’s own', async () => {
     const s = defaultState();
-    s.outputId = 'my-cycles';
+    s.outputId = 'my-synth';
     s.inputId = 'my-8mu';
     s.latencyMs = 12;
     s.clock = 'external';

@@ -88,7 +88,7 @@ export function makeTrack(index: number, partial: Partial<TrackState> = {}): Tra
   };
 }
 
-/** The default six tracks, matching the Model:Cycles' six tracks and the E1 mock. */
+/** The default six tracks, two drum and four tonal voices on channels 1–6. */
 export function defaultTracks(): TrackState[] {
   const drum = (note: number) => ({ ...DEFAULT_NOTES, kind: 'drum' as const, drumNote: note });
   return [

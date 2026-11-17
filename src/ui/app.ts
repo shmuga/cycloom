@@ -1381,7 +1381,5 @@ export class App {
 }
 
 function shortPort(name: string): string {
-  const m = /model:?\s*cycles/i.exec(name);
-  if (m) return 'Model:Cycles';
   return name.length > 22 ? `${name.slice(0, 20)}…` : name;
 }
