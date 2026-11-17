@@ -65,7 +65,6 @@ export class App {
   private stripKey = '';
   private panelKey = '';
   private lastHarmonyRender = 0;
-  private lastFrame = 0;
   private toastTimer: ReturnType<typeof setTimeout> | null = null;
   private learnFocus = false;
 
@@ -678,9 +677,6 @@ export class App {
   // ================================================================ frame
 
   frame(now: number): void {
-    const phone = window.matchMedia('(max-width: 699px)').matches;
-    if (phone && now - this.lastFrame < 31) return;
-    this.lastFrame = now;
     const eng = this.d.engine;
     const e = this.els;
     eng.prepareView(now / 1000);
@@ -735,7 +731,7 @@ export class App {
         newSeed: () => this.store.update((s) => (s.harmony.seed = Math.floor(Math.random() * 9000) + 1000)),
       };
       if (this.view === 'overview') {
-        if (!phone) renderBand(e.band, host);
+        if (!window.matchMedia('(max-width: 699px)').matches) renderBand(e.band, host);
         else renderPhoneBand(e.bandPhone, eng.harmony, this.state.harmony.holdScale);
         if (this.els.sheetBand) renderBand(this.els.sheetBand, host);
       } else renderMiniBand(e.bandMini, eng.harmony, this.state.harmony.holdScale);
