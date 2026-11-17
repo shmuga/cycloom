@@ -301,7 +301,7 @@ body[data-view='zoom'] .hdr-over { display: none !important; }
   .island-wrap canvas { aspect-ratio: 840 / 600; }
   .island-hint { display: block; font-size: 12px; text-align: center; color: var(--blue); margin-top: -4px; }
   .strip-head .acts .pill { height: 44px; border-radius: 12px; font-size: 13px; }
-  .strip-head .add { display: none; }
+  .strip-head .acts { flex-wrap: wrap; }
   /* tracks: slim one-line rows — number + activity, name + meta, M S */
   .cards { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .card { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 12px; row-gap: 0; align-items: center; padding: 6px 6px 6px 14px; border-radius: 16px; }

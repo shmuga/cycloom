@@ -241,7 +241,7 @@ type Mapping = {
 - Text is never smaller than 12 px; the numbers stay tabular.
 
 ### Performance on phones
-- Canvas `devicePixelRatio` is capped at 2. On phones the scene renders at 30 fps; the simulation still steps at a fixed rate in the scheduler, so timing is unaffected.
+- Canvas `devicePixelRatio` is capped at 2. The scene renders on every animation frame (the display rate; browsers drop it to 30 fps in low-power mode). The simulation steps at a fixed rate in the scheduler, so timing never depends on the frame rate.
 - Plinths outside the camera view skip drawing but keep simulating.
 - When the page is hidden, drawing stops entirely. Audio and MIDI keep running through the worker clock and Wake Lock.
 
